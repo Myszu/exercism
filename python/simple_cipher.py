@@ -14,7 +14,7 @@ class Cipher:
             self.key += self.key*(len(text) // len(self.key))
         for i, letter in enumerate(text):
             shift = self.alphabet.index(letter) + self.alphabet.index(self.key[i])
-            if shift >= 26: shift -= 26
+            if shift >= len(self.alphabet): shift -= len(self.alphabet)
             output += ''.join(self.alphabet[shift])
         return output
 
@@ -24,8 +24,8 @@ class Cipher:
         if len(text) > len(self.key):
             self.key += self.key*(len(text) // len(self.key))
         for i, letter in enumerate(text):
-            shift = 26 - (self.alphabet.index(self.key[i]) - self.alphabet.index(letter))
-            if shift >= 26: shift -= 26
+            shift = len(self.alphabet) - (self.alphabet.index(self.key[i]) - self.alphabet.index(letter))
+            if shift >= len(self.alphabet): shift -= len(self.alphabet)
             output += ''.join(self.alphabet[shift])
         return output
     
@@ -33,5 +33,5 @@ class Cipher:
     def gen_key(self):
         output = ''
         for i in range(100):
-            output += ''.join(self.alphabet[randbelow(26)])
+            output += ''.join(self.alphabet[randbelow(len(self.alphabet))])
         return output
